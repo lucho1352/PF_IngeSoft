@@ -1,0 +1,151 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="DatosDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Registrado">
+          <Key>
+            <PropertyRef Name="NroIdUsuario" />
+            <PropertyRef Name="TipoIdUsuario" />
+          </Key>
+          <Property Name="NroIdUsuario" Type="bigint" Nullable="false" />
+          <Property Name="TipoIdUsuario" Type="varchar" MaxLength="3" Nullable="false" />
+          <Property Name="Foto" Type="image" />
+          <Property Name="DirCorreo" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Password" Type="varchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Usuarios">
+          <Key>
+            <PropertyRef Name="NroIdUsuario" />
+            <PropertyRef Name="TipoIdUsuario" />
+          </Key>
+          <Property Name="Telefono" Type="bigint" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="NroIdUsuario" Type="bigint" Nullable="false" />
+          <Property Name="TipoIdUsuario" Type="varchar" MaxLength="3" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__Registrado__114A936A">
+          <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="1" />
+          <End Role="Registrado" Type="Self.Registrado" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Usuarios">
+              <PropertyRef Name="NroIdUsuario" />
+              <PropertyRef Name="TipoIdUsuario" />
+            </Principal>
+            <Dependent Role="Registrado">
+              <PropertyRef Name="NroIdUsuario" />
+              <PropertyRef Name="TipoIdUsuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DatosDBModelStoreContainer">
+          <EntitySet Name="Registrado" EntityType="Self.Registrado" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Usuarios" EntityType="Self.Usuarios" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Registrado__114A936A" Association="Self.FK__Registrado__114A936A">
+            <End Role="Usuarios" EntitySet="Usuarios" />
+            <End Role="Registrado" EntitySet="Registrado" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="DatosDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Registrado">
+          <Key>
+            <PropertyRef Name="NroIdUsuario" />
+            <PropertyRef Name="TipoIdUsuario" />
+          </Key>
+          <Property Name="NroIdUsuario" Type="Int64" Nullable="false" />
+          <Property Name="TipoIdUsuario" Type="String" MaxLength="3" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Foto" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="DirCorreo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Usuarios" Relationship="Self.FK__Registrado__114A936A" FromRole="Registrado" ToRole="Usuarios" />
+        </EntityType>
+        <EntityType Name="Usuarios">
+          <Key>
+            <PropertyRef Name="NroIdUsuario" />
+            <PropertyRef Name="TipoIdUsuario" />
+          </Key>
+          <Property Name="Telefono" Type="Int64" Nullable="false" />
+          <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="NroIdUsuario" Type="Int64" Nullable="false" />
+          <Property Name="TipoIdUsuario" Type="String" MaxLength="3" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Registrado" Relationship="Self.FK__Registrado__114A936A" FromRole="Usuarios" ToRole="Registrado" />
+        </EntityType>
+        <Association Name="FK__Registrado__114A936A">
+          <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="1" />
+          <End Role="Registrado" Type="Self.Registrado" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Usuarios">
+              <PropertyRef Name="NroIdUsuario" />
+              <PropertyRef Name="TipoIdUsuario" />
+            </Principal>
+            <Dependent Role="Registrado">
+              <PropertyRef Name="NroIdUsuario" />
+              <PropertyRef Name="TipoIdUsuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ConectorDB" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Registrado" EntityType="Self.Registrado" />
+          <EntitySet Name="Usuarios" EntityType="Self.Usuarios" />
+          <AssociationSet Name="FK__Registrado__114A936A" Association="Self.FK__Registrado__114A936A">
+            <End Role="Usuarios" EntitySet="Usuarios" />
+            <End Role="Registrado" EntitySet="Registrado" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="DatosDBModelStoreContainer" CdmEntityContainer="ConectorDB">
+          <EntitySetMapping Name="Registrado">
+            <EntityTypeMapping TypeName="DatosDBModel.Registrado">
+              <MappingFragment StoreEntitySet="Registrado">
+                <ScalarProperty Name="NroIdUsuario" ColumnName="NroIdUsuario" />
+                <ScalarProperty Name="TipoIdUsuario" ColumnName="TipoIdUsuario" />
+                <ScalarProperty Name="Foto" ColumnName="Foto" />
+                <ScalarProperty Name="DirCorreo" ColumnName="DirCorreo" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Usuarios">
+            <EntityTypeMapping TypeName="DatosDBModel.Usuarios">
+              <MappingFragment StoreEntitySet="Usuarios">
+                <ScalarProperty Name="Telefono" ColumnName="Telefono" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="NroIdUsuario" ColumnName="NroIdUsuario" />
+                <ScalarProperty Name="TipoIdUsuario" ColumnName="TipoIdUsuario" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

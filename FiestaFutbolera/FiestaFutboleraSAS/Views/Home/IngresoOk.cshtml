@@ -1,0 +1,198 @@
+﻿@model FiestaFutbolera.VistaModelo.InformacionVM
+<!DOCTYPE html>
+<html>
+<head>
+    <title>FFSAS/Ingreso</title>
+	<meta name="keywords" content="" />
+	<meta name="description" content="" />
+	<meta charset="utf-8">
+	<meta name="viewport" content="initial-scale=1">
+ 
+	<link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" href="../css/bootstrap.min.css">
+	<link rel="stylesheet" href="../css/font-awesome.min.css">
+	<link rel="stylesheet" href="../css/templatemo_misc.css">
+	<link rel="stylesheet" href="../css/templatemo_style.css">
+</head>
+<body>
+	
+	<!-- This one in here is responsive menu for tablet and mobiles -->
+    <div class="responsive-navigation visible-sm visible-xs">
+        <a href="#" class="menu-toggle-btn">
+            <i class="fa fa-bars fa-2x"></i>
+        </a>
+        <div class="navigation responsive-menu">
+            <ul>
+	            <li class="ingreso"><a href="#ingreso">Datos Personales</a></li>
+                <li class="portfolio"><a href="#portfolio">Reservar</a></li>
+                <li class="servicios"><a href="#portfolio">Gestionar Reservas</a></li>
+            </ul> <!-- /.main_menu -->
+        </div> <!-- /.responsive_menu -->
+    </div> <!-- /responsive_navigation -->
+
+	<div id="main-sidebar" class="hidden-xs hidden-sm">
+		<div class="logo">
+		  <a href="#">
+		  <h1>Fiesta</h1>
+		  <h1>Futbolera</h1>
+		  </a></div> <!-- /Foto jugador -->
+
+		<div class="navigation">
+	        <ul class="main-menu">
+				<li class="ingreso"><a href="#ingreso">Datos Personales</a></li>
+                <li class="portfolio"><a href="#portfolio">Reservar</a></li>
+                <li class="servicios"><a href="#portfolio">Gestionar Reservas</a></li>
+	        </ul>
+		</div> <!-- /.navigation -->
+	</div> <!-- /#main-sidebar -->
+
+	<div id="main-content">
+		<div class="container-fluid">
+<!-- DatosUsuario -->
+@using (Html.BeginForm("EliminarUsuarioRegistrado", "Home"))
+{
+            <div id="ingreso" class="section-content"><!-- /.row -->
+		        <div class="row">
+			        <div class="col-md-1"> </div>
+                    <div class="col-md-3">
+				        <div class="portfolio-item">  
+					        <div class="portfolio-thumb img">
+						        <img src="../images/portfolio/usuario.jpg" alt="Dragonfly">
+						        <div class="overlay-p">
+							        <a href="../images/portfolio/registrous.jpg" data-gal="prettyPhoto">
+								        <i class="fa fa-arrows-alt fa-2x"></i>
+							        </a>
+						        </div>
+					        </div> <!-- /.portfolio-thumb -->
+					        <h3 class="portfolio-title"><a>Foto Jugador</a></h3>
+				        </div> 
+				        </div> <!-- /.col-md-3 -->
+                    </div>
+                <div class="row">
+                    <!-- Formulario -->
+                    <div class="col-md-3">
+                        <label for="NroID" class="required">Número Identificación:</label>
+                    </div>
+                    <div class="col-md-7">
+                        @Html.TextBoxFor(model => model.Usuarios.NroIdUsuario, new { @readonly = true, @disable = true })
+                    </div>
+                    <!--<input name="NroID" type="text" id="NroID" maxlength="30"></div>-->
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <label for="TipoId" class="required">Tipo Identificacion:</label>
+                    </div>
+                    <div class="col-md-7">
+                        <!--Html.TextBoxFor(model => model.Usuarios.TipoIdUsuario) </div> -->
+                        @Html.DropDownListFor(model => model.Usuarios.TipoIdUsuario, new SelectList(
+                  new List<Object>{
+                       new { value = "CC" , text = "Cedula"  },
+                       new { value = "TI" , text = "Tarjeta" },
+                       new { value = "P" , text = "Passaporte" },
+                       new { value = "N" , text = "Nit"}
+                    },
+                  "value",
+                  "text",
+                   1))
+                    </div>
+                </div>
+                <div class="row">
+                    <!--<input name="TipoId" type="text" id="TipoId" maxlength="30"></div>-->
+                    <div class="col-md-3">
+                        <label for="Nombre" class="required">Nombre:</label>
+                    </div>
+                    <div class="col-md-7">
+                        @Html.TextBoxFor(model => model.Usuarios.Nombre)
+                    </div>
+                </div>
+                <div class="row">
+                    <!--<input name="Nombre" type="text" id="Nombre" maxlength="30"></div>-->
+                    <div class="col-md-3">
+                        <label for="Telefono" class="required">Teléfono contacto:</label>
+                    </div>
+                    <div class="col-md-7">
+                        @Html.TextBoxFor(model => model.Usuarios.Telefono)
+                    </div>
+                </div>
+                <div class="row">
+                    <!--<input name="Telefono" type="text" id="Telefono" maxlength="30"></div>-->
+                    <div class="col-md-3">
+                        <label for="DirCorreo" class="required">Dirección de Correo:</label>
+                    </div>
+                    <div class="col-md-7">
+                        @Html.TextBoxFor(model => model.Registrado.DirCorreo, new { @readonly = true, @disable = true })
+                    </div>
+                </div>
+                <div class="row">
+                    <!--<input name="DirCorreo" type="email" id="DirCorreo" maxlength="50"></div>-->
+                    <div class="col-md-3">
+                        <label for="Password" class="required">Password:</label>
+                    </div>
+                    <div class="col-md-7">
+                        @Html.PasswordFor(model => model.Registrado.Password)
+                    </div>
+                </div>
+                <div class="row">
+                    <!--<input name="Password" type="password" id="Password" maxlength="30"></div>-->
+                    <div class="col-md-3">
+                        <label for="PasswordConfirmacion" class="required">Password de nuevo:</label>
+                    </div>
+                    <div class="col-md-7">
+                        <input name="PasswordConfirmacion" type="password" id="Passwordconfirmacion" maxlength="30">
+                    </div>
+                </div>
+		        <div class="row">
+			        <div class="col-md-5">
+				        <div class="load-more">
+	                        <h3 class="portfolio-title"></h3>
+                            <div class="load-more">
+                                <a class="largeButton portfolioBgColor" @Html.ActionLink("Salir", "Index", "Home")></a>
+                                <a class="largeButton portfolioBgColor" @Html.ActionLink("Actualizar", "ActualizarUsuarioRegistrado", "Home")></a>
+                                <button class="largeButton portfolioBgColor" type="submit">Eliminar</button>
+                            </div>
+				        </div>
+			        </div>
+		        </div>
+	        </div> <!-- /#registro -->
+}
+@using (Html.BeginForm("ReservarEspacio", "Home"))
+{
+            <div id="portfolio" class="section-content">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="section-title">
+                            <h2>Reservas</h2>
+                        </div> <!-- /.section-title -->
+                    </div> <!-- /.col-md-12 -->
+                </div> <!-- /.row -->
+                <div class="col-md-4">
+                    <label for="FechaReserva" class="required">Fecha Reserva:</label>
+                </div>
+                <div class="col-md-6">
+                    <input name="FechaReserva" type="date" required="required">
+                </div>
+                <div class="col-md-4">
+                    <label for="HoraReserva" class="required">Hora Reserva:</label>
+                </div>
+                <div class="col-md-6">
+                    <input name="HoraReserva" type="time" min="9:00" max="22:00" required pattern="[9-22]{2}:[0]{2}">
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="load-more">
+                            <div>&nbsp;</div>
+                            <a href="#portfolio" class="largeButton portfolioBgColor">Reservar</a>
+                        </div>
+                    </div>
+                </div>
+            </div> <!-- /#portfolio -->
+}
+		</div> <!-- /.container-fluid -->
+	</div> <!-- /#main-content -->
+</body>
+</html>
+
+@if (TempData["testmsg"] != null)
+{
+    @Html.Raw(TempData["testmsg"])
+}
